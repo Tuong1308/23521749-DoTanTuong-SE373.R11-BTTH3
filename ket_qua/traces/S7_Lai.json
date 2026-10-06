@@ -1,0 +1,117 @@
+{
+ "scenario": "S7",
+ "pattern": "Lai (Plan+ReAct)",
+ "outcome": "HANDOFF:NEED_HUMAN",
+ "final": "DỪNG [NEED_HUMAN]\n  Lý do     : pay({'booking_code': 'BK101'}) cần phê duyệt: vé không hoàn\n  Trạng thái: tiến độ: đã giữ chỗ; model_calls: 1; tool_calls: 3; tác dụng phụ: ['BK101: đang GIỮ CHỖ VJ602 1,150,000đ']\n  Đã thử    :\n   - search_flights(SGN, DAD, 2026-10-07) → ok\n   - check_seat(VJ602) → ok\n   - book_seat(VJ602) → ok\n  Hỏi người : Duyệt thanh toán BK101 (VJ602, 1,150,000đ, KHÔNG hoàn)? Đồng ý → pay; Từ chối → huỷ giữ chỗ.",
+ "trace": [
+  {
+   "t_ms": 4.8,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 444
+  },
+  {
+   "t_ms": 4.8,
+   "event": "plan",
+   "status": "ok",
+   "steps": [
+    "search_flights({'origin': 'SGN', 'dest': 'DAD', 'date': '2026-10-07'})",
+    "check_seat({'flight_id': '$pick'})",
+    "book_seat({'flight_id': '$pick'})",
+    "pay({'booking_code': '$booking'})",
+    "get_booking({'booking_code': '$booking'})"
+   ],
+   "reasoning": "tìm → chọn rẻ nhất → kiểm ghế → giữ → trả → xác nhận"
+  },
+  {
+   "t_ms": 5.0,
+   "event": "plan_review",
+   "steps": 5,
+   "irreversible": [
+    "book_seat",
+    "pay"
+   ],
+   "budget_left": 16
+  },
+  {
+   "t_ms": 5.3,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "ok",
+    "count": 2,
+    "flights": [
+     {
+      "flight_id": "VJ602",
+      "airline": "VietJet",
+      "date": "2026-10-07",
+      "depart": "07:15",
+      "price": 1150000,
+      "refundable": false
+     },
+     {
+      "flight_id": "VN122",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "08:10",
+      "price": 1850000,
+      "refundable": true
+     }
+    ]
+   }
+  },
+  {
+   "t_ms": 5.5,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "VJ602"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "VJ602",
+    "date": "2026-10-07",
+    "depart": "07:15",
+    "seats_left": 9,
+    "price": 1150000,
+    "refundable": false
+   }
+  },
+  {
+   "t_ms": 5.7,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "VJ602"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "state": "held",
+    "price": 1150000,
+    "refundable": false
+   }
+  },
+  {
+   "t_ms": 5.9,
+   "event": "permission",
+   "name": "pay",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "decision": "ASK_HUMAN",
+   "reason": "vé không hoàn"
+  },
+  {
+   "t_ms": 5.9,
+   "event": "halt",
+   "kind": "NEED_HUMAN",
+   "reason": "pay({'booking_code': 'BK101'}) cần phê duyệt: vé không hoàn"
+  }
+ ]
+}

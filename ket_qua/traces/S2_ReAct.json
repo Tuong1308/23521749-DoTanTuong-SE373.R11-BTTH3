@@ -1,0 +1,208 @@
+{
+ "scenario": "S2",
+ "pattern": "ReAct",
+ "outcome": "DONE",
+ "final": "Đã đặt thành công vé VJ610 ngày 2026-10-07 lúc 10:30, mã đặt chỗ BK101, giá 1,320,000đ.",
+ "trace": [
+  {
+   "t_ms": 9.7,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 174
+  },
+  {
+   "t_ms": 11.1,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "ok",
+    "count": 3,
+    "flights": [
+     {
+      "flight_id": "VN122",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "08:10",
+      "price": 1450000,
+      "refundable": true
+     },
+     {
+      "flight_id": "VJ610",
+      "airline": "VietJet",
+      "date": "2026-10-07",
+      "depart": "10:30",
+      "price": 1320000,
+      "refundable": true
+     },
+     {
+      "flight_id": "QH118",
+      "airline": "Bamboo",
+      "date": "2026-10-07",
+      "depart": "15:40",
+      "price": 1190000,
+      "refundable": true
+     }
+    ]
+   }
+  },
+  {
+   "t_ms": 12.2,
+   "event": "model_call",
+   "n": 2,
+   "tokens": 349
+  },
+  {
+   "t_ms": 13.4,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "QH118",
+    "date": "2026-10-07",
+    "depart": "15:40",
+    "seats_left": 9,
+    "price": 1190000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 14.8,
+   "event": "model_call",
+   "n": 3,
+   "tokens": 424
+  },
+  {
+   "t_ms": 15.6,
+   "event": "permission",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "decision": "DENY",
+   "reason": "vi phạm ràng buộc: giờ bay 15:40 không trước 12:00"
+  },
+  {
+   "t_ms": 15.6,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "obs": {
+    "status": "denied",
+    "reason": "vi phạm ràng buộc: giờ bay 15:40 không trước 12:00",
+    "hint": "Chọn chuyến khác thỏa CONSTRAINTS_JSON|depart"
+   }
+  },
+  {
+   "t_ms": 16.6,
+   "event": "model_call",
+   "n": 4,
+   "tokens": 504
+  },
+  {
+   "t_ms": 17.7,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "VJ610"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "VJ610",
+    "date": "2026-10-07",
+    "depart": "10:30",
+    "seats_left": 9,
+    "price": 1320000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 18.8,
+   "event": "model_call",
+   "n": 5,
+   "tokens": 579
+  },
+  {
+   "t_ms": 20.0,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "VJ610"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "state": "held",
+    "price": 1320000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 21.1,
+   "event": "model_call",
+   "n": 6,
+   "tokens": 644
+  },
+  {
+   "t_ms": 22.3,
+   "event": "tool",
+   "name": "pay",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "paid": true,
+    "amount": 1320000
+   }
+  },
+  {
+   "t_ms": 23.4,
+   "event": "model_call",
+   "n": 7,
+   "tokens": 704
+  },
+  {
+   "t_ms": 24.7,
+   "event": "tool",
+   "name": "get_booking",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "flight_id": "VJ610",
+    "depart_date": "2026-10-07",
+    "depart_time": "10:30",
+    "price": 1320000,
+    "refundable": true,
+    "state": "confirmed",
+    "paid": true
+   }
+  },
+  {
+   "t_ms": 25.9,
+   "event": "model_call",
+   "n": 8,
+   "tokens": 809
+  },
+  {
+   "t_ms": 26.1,
+   "event": "verify",
+   "ok": true,
+   "fails": [],
+   "ungrounded": []
+  }
+ ]
+}

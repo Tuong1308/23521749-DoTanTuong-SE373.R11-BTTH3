@@ -1,0 +1,149 @@
+{
+ "scenario": "S8",
+ "pattern": "ReAct (không harness)",
+ "outcome": "DONE",
+ "final": "Đã đặt thành công vé QH118 ngày 2026-10-07 lúc 15:40, mã đặt chỗ BK101, giá 1,190,000đ.",
+ "trace": [
+  {
+   "t_ms": 9.8,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 174
+  },
+  {
+   "t_ms": 11.3,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "ok",
+    "count": 3,
+    "flights": [
+     {
+      "flight_id": "VN122",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "08:10",
+      "price": 2250000,
+      "refundable": true
+     },
+     {
+      "flight_id": "VN136",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "13:00",
+      "price": 1700000,
+      "refundable": true
+     },
+     {
+      "flight_id": "QH118",
+      "airline": "Bamboo",
+      "date": "2026-10-07",
+      "depart": "15:40",
+      "price": 1190000,
+      "refundable": true
+     }
+    ]
+   }
+  },
+  {
+   "t_ms": 12.5,
+   "event": "model_call",
+   "n": 2,
+   "tokens": 351
+  },
+  {
+   "t_ms": 13.9,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "QH118",
+    "date": "2026-10-07",
+    "depart": "15:40",
+    "seats_left": 9,
+    "price": 1190000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 15.0,
+   "event": "model_call",
+   "n": 3,
+   "tokens": 426
+  },
+  {
+   "t_ms": 16.2,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "state": "held",
+    "price": 1190000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 17.3,
+   "event": "model_call",
+   "n": 4,
+   "tokens": 491
+  },
+  {
+   "t_ms": 18.7,
+   "event": "tool",
+   "name": "pay",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "paid": true,
+    "amount": 1190000
+   }
+  },
+  {
+   "t_ms": 19.8,
+   "event": "model_call",
+   "n": 5,
+   "tokens": 551
+  },
+  {
+   "t_ms": 21.0,
+   "event": "tool",
+   "name": "get_booking",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "flight_id": "QH118",
+    "depart_date": "2026-10-07",
+    "depart_time": "15:40",
+    "price": 1190000,
+    "refundable": true,
+    "state": "confirmed",
+    "paid": true
+   }
+  },
+  {
+   "t_ms": 22.1,
+   "event": "model_call",
+   "n": 6,
+   "tokens": 656
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+# Môi trường ảo và cache Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Biến môi trường / API key
+.env
+
+# File cá nhân, không thuộc mã nguồn nộp bài
+anh_minh_chung/
+ket_qua/tong_quan.html
+~$*.docx
+
+# IDE / hệ điều hành
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

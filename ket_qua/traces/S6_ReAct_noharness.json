@@ -1,0 +1,271 @@
+{
+ "scenario": "S6",
+ "pattern": "ReAct (không harness)",
+ "outcome": "ERROR",
+ "final": "",
+ "trace": [
+  {
+   "t_ms": 8.5,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 174
+  },
+  {
+   "t_ms": 9.7,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 10.6,
+   "event": "model_call",
+   "n": 2,
+   "tokens": 246
+  },
+  {
+   "t_ms": 11.7,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 12.6,
+   "event": "model_call",
+   "n": 3,
+   "tokens": 319
+  },
+  {
+   "t_ms": 15.2,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 16.0,
+   "event": "model_call",
+   "n": 4,
+   "tokens": 391
+  },
+  {
+   "t_ms": 17.2,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 18.2,
+   "event": "model_call",
+   "n": 5,
+   "tokens": 463
+  },
+  {
+   "t_ms": 19.2,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 20.2,
+   "event": "model_call",
+   "n": 6,
+   "tokens": 535
+  },
+  {
+   "t_ms": 21.3,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 22.2,
+   "event": "model_call",
+   "n": 7,
+   "tokens": 608
+  },
+  {
+   "t_ms": 23.3,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 24.2,
+   "event": "model_call",
+   "n": 8,
+   "tokens": 680
+  },
+  {
+   "t_ms": 26.0,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 27.0,
+   "event": "model_call",
+   "n": 9,
+   "tokens": 752
+  },
+  {
+   "t_ms": 28.1,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 29.1,
+   "event": "model_call",
+   "n": 10,
+   "tokens": 824
+  },
+  {
+   "t_ms": 30.5,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 31.5,
+   "event": "model_call",
+   "n": 11,
+   "tokens": 897
+  },
+  {
+   "t_ms": 32.5,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 33.5,
+   "event": "model_call",
+   "n": 12,
+   "tokens": 969
+  },
+  {
+   "t_ms": 34.6,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 35.6,
+   "event": "model_call",
+   "n": 13,
+   "tokens": 1042
+  },
+  {
+   "t_ms": 35.7,
+   "event": "error",
+   "error": "GraphRecursionError (recursion_limit=50)"
+  }
+ ]
+}

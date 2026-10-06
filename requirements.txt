@@ -1,0 +1,7 @@
+langchain>=1.0
+langgraph>=1.0
+langchain-core>=1.0
+pydantic>=2
+# Tuỳ chọn, khi dùng LLM thật qua SE373_MODEL:
+# langchain-anthropic
+# langchain-openai

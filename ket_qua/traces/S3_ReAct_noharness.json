@@ -1,0 +1,160 @@
+{
+ "scenario": "S3",
+ "pattern": "ReAct (không harness)",
+ "outcome": "DONE",
+ "final": "Đã đặt thành công vé VN122 ngày 2026-10-07 lúc 08:10, mã đặt chỗ BK101, giá 1,450,000đ.",
+ "trace": [
+  {
+   "t_ms": 10.4,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 174
+  },
+  {
+   "t_ms": 11.6,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "ok",
+    "count": 2,
+    "flights": [
+     {
+      "flight_id": "VN122",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "08:10",
+      "price": 1450000,
+      "refundable": true
+     },
+     {
+      "flight_id": "VJ610",
+      "airline": "VietJet",
+      "date": "2026-10-07",
+      "depart": "10:30",
+      "price": 1320000,
+      "refundable": true
+     }
+    ]
+   }
+  },
+  {
+   "t_ms": 12.6,
+   "event": "model_call",
+   "n": 2,
+   "tokens": 313
+  },
+  {
+   "t_ms": 13.8,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "VJ610"
+   },
+   "obs": {
+    "status": "sold_out",
+    "flight_id": "VJ610",
+    "hint": "Chọn chuyến khác"
+   }
+  },
+  {
+   "t_ms": 14.7,
+   "event": "model_call",
+   "n": 3,
+   "tokens": 377
+  },
+  {
+   "t_ms": 15.8,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "VN122"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "VN122",
+    "date": "2026-10-07",
+    "depart": "08:10",
+    "seats_left": 9,
+    "price": 1450000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 16.7,
+   "event": "model_call",
+   "n": 4,
+   "tokens": 451
+  },
+  {
+   "t_ms": 17.9,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "VN122"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "state": "held",
+    "price": 1450000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 18.8,
+   "event": "model_call",
+   "n": 5,
+   "tokens": 516
+  },
+  {
+   "t_ms": 19.9,
+   "event": "tool",
+   "name": "pay",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "paid": true,
+    "amount": 1450000
+   }
+  },
+  {
+   "t_ms": 20.9,
+   "event": "model_call",
+   "n": 6,
+   "tokens": 577
+  },
+  {
+   "t_ms": 22.0,
+   "event": "tool",
+   "name": "get_booking",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "flight_id": "VN122",
+    "depart_date": "2026-10-07",
+    "depart_time": "08:10",
+    "price": 1450000,
+    "refundable": true,
+    "state": "confirmed",
+    "paid": true
+   }
+  },
+  {
+   "t_ms": 23.0,
+   "event": "model_call",
+   "n": 7,
+   "tokens": 682
+  }
+ ]
+}

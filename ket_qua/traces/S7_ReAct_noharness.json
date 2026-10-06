@@ -1,0 +1,141 @@
+{
+ "scenario": "S7",
+ "pattern": "ReAct (không harness)",
+ "outcome": "DONE",
+ "final": "Đã đặt thành công vé VJ602 ngày 2026-10-07 lúc 07:15, mã đặt chỗ BK101, giá 1,150,000đ.",
+ "trace": [
+  {
+   "t_ms": 8.7,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 174
+  },
+  {
+   "t_ms": 10.2,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "ok",
+    "count": 2,
+    "flights": [
+     {
+      "flight_id": "VJ602",
+      "airline": "VietJet",
+      "date": "2026-10-07",
+      "depart": "07:15",
+      "price": 1150000,
+      "refundable": false
+     },
+     {
+      "flight_id": "VN122",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "08:10",
+      "price": 1850000,
+      "refundable": true
+     }
+    ]
+   }
+  },
+  {
+   "t_ms": 11.1,
+   "event": "model_call",
+   "n": 2,
+   "tokens": 313
+  },
+  {
+   "t_ms": 12.3,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "VJ602"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "VJ602",
+    "date": "2026-10-07",
+    "depart": "07:15",
+    "seats_left": 9,
+    "price": 1150000,
+    "refundable": false
+   }
+  },
+  {
+   "t_ms": 13.4,
+   "event": "model_call",
+   "n": 3,
+   "tokens": 388
+  },
+  {
+   "t_ms": 14.6,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "VJ602"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "state": "held",
+    "price": 1150000,
+    "refundable": false
+   }
+  },
+  {
+   "t_ms": 15.5,
+   "event": "model_call",
+   "n": 4,
+   "tokens": 453
+  },
+  {
+   "t_ms": 16.7,
+   "event": "tool",
+   "name": "pay",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "paid": true,
+    "amount": 1150000
+   }
+  },
+  {
+   "t_ms": 17.8,
+   "event": "model_call",
+   "n": 5,
+   "tokens": 514
+  },
+  {
+   "t_ms": 19.0,
+   "event": "tool",
+   "name": "get_booking",
+   "args": {
+    "booking_code": "BK101"
+   },
+   "obs": {
+    "status": "ok",
+    "booking_code": "BK101",
+    "flight_id": "VJ602",
+    "depart_date": "2026-10-07",
+    "depart_time": "07:15",
+    "price": 1150000,
+    "refundable": false,
+    "state": "confirmed",
+    "paid": true
+   }
+  },
+  {
+   "t_ms": 19.9,
+   "event": "model_call",
+   "n": 6,
+   "tokens": 619
+  }
+ ]
+}

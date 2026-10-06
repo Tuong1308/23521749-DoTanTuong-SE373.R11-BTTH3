@@ -1,0 +1,70 @@
+{
+ "scenario": "S9",
+ "pattern": "Plan-then-Execute",
+ "outcome": "HANDOFF:PLAN_FAILED",
+ "final": "DỪNG [PLAN_FAILED]\n  Lý do     : bước 1/5 search_flights({'origin': 'SGN', 'dest': 'DAD', 'date': '07/10'}) → denied date '07/10' sai định dạng; mẫu Plan-then-Execute không lập lại kế hoạch\n  Trạng thái: tiến độ: chưa có dữ liệu; model_calls: 1; tool_calls: 1; tác dụng phụ: không có\n  Đã thử    :\n   - search_flights(SGN, DAD, 07/10) → denied (date '07/10' sai định dạng)\n  Hỏi người : Kế hoạch hiện tại không hoàn thành được. Cho phép agent lập lại kế hoạch hay chuyển nhân viên?",
+ "trace": [
+  {
+   "t_ms": 3.9,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 441
+  },
+  {
+   "t_ms": 4.0,
+   "event": "plan",
+   "status": "ok",
+   "steps": [
+    "search_flights({'origin': 'SGN', 'dest': 'DAD', 'date': '07/10'})",
+    "check_seat({'flight_id': '$pick'})",
+    "book_seat({'flight_id': '$pick'})",
+    "pay({'booking_code': '$booking'})",
+    "get_booking({'booking_code': '$booking'})"
+   ],
+   "reasoning": "tìm → chọn rẻ nhất → kiểm ghế → giữ → trả → xác nhận"
+  },
+  {
+   "t_ms": 4.2,
+   "event": "plan_review",
+   "steps": 5,
+   "irreversible": [
+    "book_seat",
+    "pay"
+   ],
+   "budget_left": 16
+  },
+  {
+   "t_ms": 4.4,
+   "event": "permission",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "07/10"
+   },
+   "decision": "DENY",
+   "reason": "date '07/10' sai định dạng"
+  },
+  {
+   "t_ms": 4.4,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "07/10"
+   },
+   "obs": {
+    "status": "denied",
+    "reason": "date '07/10' sai định dạng",
+    "hint": "Dùng YYYY-MM-DD, ví dụ 2026-10-07"
+   }
+  },
+  {
+   "t_ms": 4.7,
+   "event": "halt",
+   "kind": "PLAN_FAILED",
+   "reason": "bước 1/5 search_flights({'origin': 'SGN', 'dest': 'DAD', 'date': '07/10'}) → denied date '07/10' sai định dạng; mẫu Plan-then-Execute không lập lại kế hoạch"
+  }
+ ]
+}

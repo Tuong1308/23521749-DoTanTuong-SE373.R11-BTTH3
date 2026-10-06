@@ -1,0 +1,240 @@
+{
+ "scenario": "S8",
+ "pattern": "Lai (Plan+ReAct)",
+ "outcome": "HANDOFF:NOT_DONE",
+ "final": "DỪNG [NOT_DONE]\n  Lý do     : tiêu chí hoàn thành chưa đạt: chưa có booking nào do agent tạo | model nói: “Không tìm thấy chuyến phù hợp với ràng buộc.”\n  Trạng thái: tiến độ: đã kiểm ghế; model_calls: 4; tool_calls: 5; tác dụng phụ: không có\n  Đã thử    :\n   - search_flights(SGN, DAD, 2026-10-07) → ok\n   - check_seat(QH118) → ok\n   - book_seat(QH118) → denied (vi phạm ràng buộc: giờ bay 15:40 không trước 12:00)\n   - check_seat(VN122) → ok\n   - book_seat(VN122) → denied (vi phạm ràng buộc: giá 2,250,000đ vượt 2,000,000đ)\n  Hỏi người : Không chuyến nào thỏa toàn bộ ràng buộc (3 chuyến đã xét). Nới giờ bay (sau 12:00) hay ngân sách (> 2,000,000đ)?",
+ "trace": [
+  {
+   "t_ms": 3.8,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 444
+  },
+  {
+   "t_ms": 3.8,
+   "event": "plan",
+   "status": "ok",
+   "steps": [
+    "search_flights({'origin': 'SGN', 'dest': 'DAD', 'date': '2026-10-07'})",
+    "check_seat({'flight_id': '$pick'})",
+    "book_seat({'flight_id': '$pick'})",
+    "pay({'booking_code': '$booking'})",
+    "get_booking({'booking_code': '$booking'})"
+   ],
+   "reasoning": "tìm → chọn rẻ nhất → kiểm ghế → giữ → trả → xác nhận"
+  },
+  {
+   "t_ms": 4.1,
+   "event": "plan_review",
+   "steps": 5,
+   "irreversible": [
+    "book_seat",
+    "pay"
+   ],
+   "budget_left": 16
+  },
+  {
+   "t_ms": 4.3,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "ok",
+    "count": 3,
+    "flights": [
+     {
+      "flight_id": "VN122",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "08:10",
+      "price": 2250000,
+      "refundable": true
+     },
+     {
+      "flight_id": "VN136",
+      "airline": "Vietnam Airlines",
+      "date": "2026-10-07",
+      "depart": "13:00",
+      "price": 1700000,
+      "refundable": true
+     },
+     {
+      "flight_id": "QH118",
+      "airline": "Bamboo",
+      "date": "2026-10-07",
+      "depart": "15:40",
+      "price": 1190000,
+      "refundable": true
+     }
+    ]
+   }
+  },
+  {
+   "t_ms": 4.5,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "QH118",
+    "date": "2026-10-07",
+    "depart": "15:40",
+    "seats_left": 9,
+    "price": 1190000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 4.7,
+   "event": "permission",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "decision": "DENY",
+   "reason": "vi phạm ràng buộc: giờ bay 15:40 không trước 12:00"
+  },
+  {
+   "t_ms": 4.7,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "QH118"
+   },
+   "obs": {
+    "status": "denied",
+    "reason": "vi phạm ràng buộc: giờ bay 15:40 không trước 12:00",
+    "hint": "Chọn chuyến khác thỏa CONSTRAINTS_JSON|depart"
+   }
+  },
+  {
+   "t_ms": 5.2,
+   "event": "model_call",
+   "n": 2,
+   "tokens": 665
+  },
+  {
+   "t_ms": 5.2,
+   "event": "plan",
+   "status": "ok",
+   "steps": [
+    "check_seat({'flight_id': 'VN122'})",
+    "book_seat({'flight_id': 'VN122'})",
+    "pay({'booking_code': '$booking'})",
+    "get_booking({'booking_code': '$booking'})"
+   ],
+   "reasoning": "đổi sang VN122, loại ['QH118']"
+  },
+  {
+   "t_ms": 5.4,
+   "event": "plan_review",
+   "steps": 4,
+   "irreversible": [
+    "book_seat",
+    "pay"
+   ],
+   "budget_left": 13
+  },
+  {
+   "t_ms": 5.6,
+   "event": "tool",
+   "name": "check_seat",
+   "args": {
+    "flight_id": "VN122"
+   },
+   "obs": {
+    "status": "ok",
+    "flight_id": "VN122",
+    "date": "2026-10-07",
+    "depart": "08:10",
+    "seats_left": 9,
+    "price": 2250000,
+    "refundable": true
+   }
+  },
+  {
+   "t_ms": 6.2,
+   "event": "model_call",
+   "n": 3,
+   "tokens": 702
+  },
+  {
+   "t_ms": 6.3,
+   "event": "plan",
+   "status": "ok",
+   "steps": [
+    "book_seat({'flight_id': 'VN122'})",
+    "pay({'booking_code': '$booking'})",
+    "get_booking({'booking_code': '$booking'})"
+   ],
+   "reasoning": "đổi sang VN122, loại ['QH118']"
+  },
+  {
+   "t_ms": 6.6,
+   "event": "plan_review",
+   "steps": 3,
+   "irreversible": [
+    "book_seat",
+    "pay"
+   ],
+   "budget_left": 12
+  },
+  {
+   "t_ms": 6.9,
+   "event": "permission",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "VN122"
+   },
+   "decision": "DENY",
+   "reason": "vi phạm ràng buộc: giá 2,250,000đ vượt 2,000,000đ"
+  },
+  {
+   "t_ms": 6.9,
+   "event": "tool",
+   "name": "book_seat",
+   "args": {
+    "flight_id": "VN122"
+   },
+   "obs": {
+    "status": "denied",
+    "reason": "vi phạm ràng buộc: giá 2,250,000đ vượt 2,000,000đ",
+    "hint": "Chọn chuyến khác thỏa CONSTRAINTS_JSON|price"
+   }
+  },
+  {
+   "t_ms": 7.5,
+   "event": "model_call",
+   "n": 4,
+   "tokens": 710
+  },
+  {
+   "t_ms": 7.5,
+   "event": "plan",
+   "status": "no_option",
+   "steps": [],
+   "reasoning": "đã loại ['QH118', 'VN122']"
+  },
+  {
+   "t_ms": 8.0,
+   "event": "verify",
+   "ok": false,
+   "fails": [
+    "chưa có booking nào do agent tạo"
+   ],
+   "ungrounded": []
+  },
+  {
+   "t_ms": 8.0,
+   "event": "halt",
+   "kind": "NOT_DONE",
+   "reason": "tiêu chí hoàn thành chưa đạt: chưa có booking nào do agent tạo | model nói: “Không tìm thấy chuyến phù hợp với ràng buộc.”"
+  }
+ ]
+}

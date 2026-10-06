@@ -1,0 +1,73 @@
+{
+ "scenario": "S6",
+ "pattern": "Lai (Plan+ReAct)",
+ "outcome": "HANDOFF:LOOP",
+ "final": "DỪNG [LOOP]\n  Lý do     : LOOP · 'search_flights' gọi 3 lần với cùng tham số trong 6 vòng gần nhất\n  Trạng thái: tiến độ: chưa có dữ liệu; model_calls: 1; tool_calls: 2; tác dụng phụ: không có\n  Đã thử    :\n   - search_flights(SGN, DAD, 2026-10-07) → error (timeout)\n   - search_flights(SGN, DAD, 2026-10-07) → error (timeout)\n  Hỏi người : Dịch vụ liên tục lỗi. Thử lại sau 15 phút hay chuyển nhân viên đặt thủ công?",
+ "trace": [
+  {
+   "t_ms": 4.5,
+   "event": "model_call",
+   "n": 1,
+   "tokens": 444
+  },
+  {
+   "t_ms": 4.6,
+   "event": "plan",
+   "status": "ok",
+   "steps": [
+    "search_flights({'origin': 'SGN', 'dest': 'DAD', 'date': '2026-10-07'})",
+    "check_seat({'flight_id': '$pick'})",
+    "book_seat({'flight_id': '$pick'})",
+    "pay({'booking_code': '$booking'})",
+    "get_booking({'booking_code': '$booking'})"
+   ],
+   "reasoning": "tìm → chọn rẻ nhất → kiểm ghế → giữ → trả → xác nhận"
+  },
+  {
+   "t_ms": 4.8,
+   "event": "plan_review",
+   "steps": 5,
+   "irreversible": [
+    "book_seat",
+    "pay"
+   ],
+   "budget_left": 16
+  },
+  {
+   "t_ms": 5.0,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 5.2,
+   "event": "tool",
+   "name": "search_flights",
+   "args": {
+    "origin": "SGN",
+    "dest": "DAD",
+    "date": "2026-10-07"
+   },
+   "obs": {
+    "status": "error",
+    "error": "timeout",
+    "hint": "Dịch vụ tìm chuyến lỗi tạm thời, có thể thử lại sau"
+   }
+  },
+  {
+   "t_ms": 5.5,
+   "event": "halt",
+   "kind": "LOOP",
+   "reason": "LOOP · 'search_flights' gọi 3 lần với cùng tham số trong 6 vòng gần nhất"
+  }
+ ]
+}
